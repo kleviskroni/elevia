@@ -19,31 +19,29 @@ export default function Page() {
 
   const [state, formAction] = useActionState<RegisterActionState, FormData>(
     register,
-    {
-      status: 'idle',
-    },
+    { status: 'idle' },
   );
 
-  const { update: updateSession } = useSession();
-
   useEffect(() => {
-    if (state.status === 'user_exists') {
-      toast({ type: 'error', description: 'Account already exists!' });
-    } else if (state.status === 'failed') {
-      toast({ type: 'error', description: 'Failed to create account!' });
-    } else if (state.status === 'invalid_data') {
+    if (state.status === 'invalid_data') {
       toast({
         type: 'error',
-        description: 'Failed validating your submission!',
+        description: 'Dati non validi. Controlla i dettagli forniti.',
+      });
+    } else if (state.status === 'failed') {
+      toast({
+        type: 'error',
+        description: 'Errore durante la registrazione. Riprova.',
       });
     } else if (state.status === 'success') {
-      toast({ type: 'success', description: 'Account created successfully!' });
-
+      toast({
+        type: 'success',
+        description: 'Registrazione completata con successo!',
+      });
       setIsSuccessful(true);
-      updateSession();
       router.refresh();
     }
-  }, [state]);
+  }, [state, router]);
 
   const handleSubmit = (formData: FormData) => {
     setEmail(formData.get('email') as string);

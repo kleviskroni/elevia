@@ -40,7 +40,7 @@ export function SidebarUserNav({ user }: { user: User }) {
                 <div className="flex flex-row gap-2">
                   <div className="size-6 bg-zinc-500/30 rounded-full animate-pulse" />
                   <span className="bg-zinc-500/30 text-transparent rounded-md animate-pulse">
-                    Loading auth status
+                    Caricamento stato autenticazione
                   </span>
                 </div>
                 <div className="animate-spin text-zinc-500">
@@ -54,13 +54,13 @@ export function SidebarUserNav({ user }: { user: User }) {
               >
                 <Image
                   src={`https://avatar.vercel.sh/${user.email}`}
-                  alt={user.email ?? 'User Avatar'}
+                  alt={user.email ?? 'Avatar Utente'}
                   width={24}
                   height={24}
                   className="rounded-full"
                 />
                 <span data-testid="user-email" className="truncate">
-                  {isGuest ? 'Guest' : user?.email}
+                  {isGuest ? 'Ospite' : user?.email}
                 </span>
                 <ChevronUp className="ml-auto" />
               </SidebarMenuButton>
@@ -76,7 +76,7 @@ export function SidebarUserNav({ user }: { user: User }) {
               className="cursor-pointer"
               onSelect={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             >
-              {`Toggle ${theme === 'light' ? 'dark' : 'light'} mode`}
+              {`Attiva modalità ${theme === 'light' ? 'scura' : 'chiara'}`}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild data-testid="user-nav-item-auth">
@@ -88,7 +88,7 @@ export function SidebarUserNav({ user }: { user: User }) {
                     toast({
                       type: 'error',
                       description:
-                        'Checking authentication status, please try again!',
+                        'Verifica stato autenticazione in corso, riprova!',
                     });
 
                     return;
@@ -103,7 +103,7 @@ export function SidebarUserNav({ user }: { user: User }) {
                   }
                 }}
               >
-                {isGuest ? 'Login to your account' : 'Sign out'}
+                {isGuest ? 'Accedi al tuo account' : 'Esci'}
               </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
