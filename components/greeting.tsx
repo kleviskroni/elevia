@@ -13,7 +13,7 @@ export const Greeting = () => {
         transition={{ delay: 0.5 }}
         className="text-2xl font-semibold"
       >
-        RUOLO: Agisci come un assistente tecnico virtuale H24, altamente specializzato nella manutenzione di ascensori e impianti elevatori Millepiani e multimarca.
+        ELEVIA - Assistente Tecnico Ascensori
       </motion.div>
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -22,7 +22,7 @@ export const Greeting = () => {
         transition={{ delay: 0.6 }}
         className="text-2xl text-zinc-500"
       >
-        OBIETTIVO: “Identifica. Risolvi. Previeni.”
+        Diagnosi, Soluzioni e Supporto Multimarca 24/7”
       </motion.div>
     </div>
   );

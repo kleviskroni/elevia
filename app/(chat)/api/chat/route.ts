@@ -32,7 +32,6 @@ import {
   createResumableStreamContext,
   type ResumableStreamContext,
 } from 'resumable-stream';
-import { after } from 'next/server';
 import type { Chat } from '@/lib/db/schema';
 import { differenceInSeconds } from 'date-fns';
 import { ChatSDKError } from '@/lib/errors';
@@ -45,19 +44,18 @@ function getStreamContext() {
   if (!globalStreamContext) {
     try {
       globalStreamContext = createResumableStreamContext({
-        waitUntil: after,
+        waitUntil: (promise: Promise<unknown>) => { void promise; },
       });
     } catch (error: any) {
       if (error.message.includes('REDIS_URL')) {
         console.log(
           ' > Resumable streams are disabled due to missing REDIS_URL',
         );
-      } else {
-        console.error(error);
+        return null;
       }
+      throw error;
     }
   }
-
   return globalStreamContext;
 }
 

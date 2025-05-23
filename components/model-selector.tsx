@@ -32,8 +32,26 @@ export function ModelSelector({
   const userType = session.user.type;
   const { availableChatModelIds } = entitlementsByUserType[userType];
 
-  const availableChatModels = chatModels.filter((chatModel) =>
-    availableChatModelIds.includes(chatModel.id),
+  const availableChatModels = useMemo(
+    () =>
+      chatModels
+        .filter((chatModel) => availableChatModelIds.includes(chatModel.id))
+        .map((chatModel) => ({
+          ...chatModel,
+          name:
+            chatModel.id === 'chat-model'
+              ? 'Assistente Tecnico'
+              : chatModel.id === 'chat-model-reasoning'
+                ? 'Assistente Avanzato'
+                : chatModel.name,
+          description:
+            chatModel.id === 'chat-model'
+              ? 'Specializzato in assistenza tecnica per manutenzione ascensori.'
+              : chatModel.id === 'chat-model-reasoning'
+                ? 'Supporto avanzato per diagnosi e risoluzione di problemi complessi sugli ascensori.'
+                : chatModel.description,
+        })),
+    [availableChatModelIds],
   );
 
   const selectedChatModel = useMemo(

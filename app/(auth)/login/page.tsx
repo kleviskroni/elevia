@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useActionState, useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from '@/components/toast';
 
 import { AuthForm } from '@/components/auth-form';
@@ -16,11 +16,7 @@ export default function Page() {
 
   const [email, setEmail] = useState('');
   const [isSuccessful, setIsSuccessful] = useState(false);
-
-  const [state, formAction] = useActionState<LoginActionState, FormData>(
-    login,
-    { status: 'idle' },
-  );
+  const [state, setState] = useState<LoginActionState>({ status: 'idle' });
 
   useEffect(() => {
     if (state.status === 'invalid_data') {
@@ -31,7 +27,7 @@ export default function Page() {
     } else if (state.status === 'failed') {
       toast({
         type: 'error',
-        description: 'Errore durante l\'accesso. Riprova.',
+        description: "Errore durante l'accesso. Riprova.",
       });
     } else if (state.status === 'success') {
       toast({
@@ -43,9 +39,10 @@ export default function Page() {
     }
   }, [state, router]);
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = async (formData: FormData) => {
     setEmail(formData.get('email') as string);
-    formAction(formData);
+    const result = await login(state, formData);
+    setState(result);
   };
 
   return (
