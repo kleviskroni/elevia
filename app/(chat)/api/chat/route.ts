@@ -44,7 +44,9 @@ function getStreamContext() {
   if (!globalStreamContext) {
     try {
       globalStreamContext = createResumableStreamContext({
-        waitUntil: (promise: Promise<unknown>) => { void promise; },
+        waitUntil: (promise: Promise<unknown>) => {
+          void promise;
+        },
       });
     } catch (error: any) {
       if (error.message.includes('REDIS_URL')) {

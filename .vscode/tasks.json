@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Migrate DB and Run Tests",
+			"command": "SUPABASE_DB_URL=\"postgres://postgres.lvwwrzufzdoztmpnatpa:EQjWwdOkeNHAp22Z@aws-0-eu-central-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x\" npm run db:migrate && npm test",
+			"problemMatcher": [],
+			"group": "build",
+			"isBackground": false
+		}
+	]
+}

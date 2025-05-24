@@ -125,7 +125,7 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
     });
 
     toast.promise(deletePromise, {
-      loading: 'Deleting chat...',
+      loading: 'Eliminazione della chat in corso...',
       success: () => {
         mutate((chatHistories) => {
           if (chatHistories) {
@@ -136,9 +136,9 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
           }
         });
 
-        return 'Chat deleted successfully';
+        return 'Chat eliminata con successo';
       },
-      error: 'Failed to delete chat',
+      error: 'Impossibile eliminare la chat',
     });
 
     setShowDeleteDialog(false);
@@ -330,7 +330,7 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
 
           {hasReachedEnd ? (
             <div className="px-2 text-zinc-500 w-full flex flex-row justify-center items-center text-sm gap-2 mt-8">
-              You have reached the end of your chat history.
+              Hai raggiunto la fine della cronologia chat.
             </div>
           ) : (
             <div className="p-2 text-zinc-500 dark:text-zinc-400 flex flex-row gap-2 items-center mt-8">
@@ -346,16 +346,16 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>Sei sicuro?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              chat and remove it from our servers.
+              Questa azione non può essere annullata. Questa chat sarà eliminata
+              definitivamente dai nostri server.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>Annulla</AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete}>
-              Continue
+              Continua
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

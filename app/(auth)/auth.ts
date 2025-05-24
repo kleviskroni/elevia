@@ -41,24 +41,34 @@ export const {
     Credentials({
       credentials: {},
       async authorize({ email, password }: any) {
+        console.log('[AUTH] Tentativo login per:', email);
         const users = await getUser(email);
+        console.log('[AUTH] Utenti trovati:', users.length);
 
         if (users.length === 0) {
+          console.log('[AUTH] Nessun utente trovato');
           await compare(password, DUMMY_PASSWORD);
           return null;
         }
 
         const [user] = users;
+        console.log('[AUTH] User record:', user);
 
         if (!user.password) {
+          console.log('[AUTH] User senza password');
           await compare(password, DUMMY_PASSWORD);
           return null;
         }
 
         const passwordsMatch = await compare(password, user.password);
+        console.log('[AUTH] Password match:', passwordsMatch);
 
-        if (!passwordsMatch) return null;
+        if (!passwordsMatch) {
+          console.log('[AUTH] Password errata');
+          return null;
+        }
 
+        console.log('[AUTH] Login riuscito per', email);
         return { ...user, type: 'regular' };
       },
     }),

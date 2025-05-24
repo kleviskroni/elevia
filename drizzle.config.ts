@@ -10,7 +10,7 @@ export default defineConfig({
   out: './lib/db/migrations',
   dialect: 'postgresql',
   dbCredentials: {
-    // biome-ignore lint: Forbidden non-null assertion.
-    url: process.env.POSTGRES_URL!,
+    // Use Supabase Postgres connection string
+    url: process.env.SUPABASE_DB_URL || '', // Set SUPABASE_DB_URL in your .env.production to your Supabase Postgres connection string
   },
 });

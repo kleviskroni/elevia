@@ -1,41 +1,27 @@
-import { cookies } from 'next/headers';
+'use client';
+
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 import { Chat } from '@/components/chat';
 import { DEFAULT_CHAT_MODEL } from '@/lib/ai/models';
 import { generateUUID } from '@/lib/utils';
 import { DataStreamHandler } from '@/components/data-stream-handler';
-import { auth } from '../(auth)/auth';
-import { redirect } from 'next/navigation';
 
-export default async function Page() {
-  const session = await auth();
+export default function Page() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
-  if (!session) {
-    redirect('/api/auth/guest');
+  if (status === 'loading') {
+    return null; // or a loading spinner
+  }
+
+  if (!session || session.user?.type === 'guest') {
+    router.push('/login');
+    return null;
   }
 
   const id = generateUUID();
-
-  const cookieStore = await cookies();
-  const modelIdFromCookie = cookieStore.get('chat-model');
-
-  if (!modelIdFromCookie) {
-    return (
-      <>
-        <Chat
-          key={id}
-          id={id}
-          initialMessages={[]}
-          initialChatModel={DEFAULT_CHAT_MODEL}
-          initialVisibilityType="private"
-          isReadonly={false}
-          session={session}
-          autoResume={false}
-        />
-        <DataStreamHandler id={id} />
-      </>
-    );
-  }
 
   return (
     <>
@@ -43,7 +29,7 @@ export default async function Page() {
         key={id}
         id={id}
         initialMessages={[]}
-        initialChatModel={modelIdFromCookie.value}
+        initialChatModel={DEFAULT_CHAT_MODEL}
         initialVisibilityType="private"
         isReadonly={false}
         session={session}

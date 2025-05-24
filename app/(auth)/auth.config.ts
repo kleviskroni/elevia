@@ -1,6 +1,6 @@
 import type { NextAuthConfig } from 'next-auth';
 
-export const authConfig = {
+export const authConfig: NextAuthConfig = {
   pages: {
     signIn: '/login',
     newUser: '/',
@@ -10,4 +10,5 @@ export const authConfig = {
     // while this file is also used in non-Node.js environments
   ],
   callbacks: {},
-} satisfies NextAuthConfig;
+};
+export default authConfig;

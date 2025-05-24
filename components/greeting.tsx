@@ -1,6 +1,12 @@
 import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
 
 export const Greeting = () => {
+  const { data: session } = useSession();
+  if (!session) {
+    return null;
+  }
+
   return (
     <div
       key="overview"
@@ -13,7 +19,7 @@ export const Greeting = () => {
         transition={{ delay: 0.5 }}
         className="text-2xl font-semibold"
       >
-        ELEVIA - Assistente Tecnico Ascensori
+        ELEVIA
       </motion.div>
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -22,7 +28,7 @@ export const Greeting = () => {
         transition={{ delay: 0.6 }}
         className="text-2xl text-zinc-500"
       >
-        Diagnosi, Soluzioni e Supporto Multimarca 24/7”
+        Diagnosi, Soluzioni e Supporto Multimarca 24/7
       </motion.div>
     </div>
   );

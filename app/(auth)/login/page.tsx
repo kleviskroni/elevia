@@ -9,7 +9,6 @@ import { AuthForm } from '@/components/auth-form';
 import { SubmitButton } from '@/components/submit-button';
 
 import { login, type LoginActionState } from '../actions';
-import { useSession } from 'next-auth/react';
 
 export default function Page() {
   const router = useRouter();
@@ -56,6 +55,14 @@ export default function Page() {
         </div>
         <AuthForm action={handleSubmit} defaultEmail={email}>
           <SubmitButton isSuccessful={isSuccessful}>Accedi</SubmitButton>
+          <div className="flex flex-col items-center mt-2">
+            <Link
+              href="/forgot-password"
+              className="text-xs text-blue-600 hover:underline mb-2"
+            >
+              Password dimenticata?
+            </Link>
+          </div>
           <p className="text-center text-sm text-gray-600 mt-4 dark:text-zinc-400">
             {"Non hai un'account? "}
             <Link
