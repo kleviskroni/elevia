@@ -2,8 +2,7 @@ export async function getAssistantResponse(prompt: string): Promise<string> {
   const OpenAI = (await import('openai')).default;
   const openai = new OpenAI({
     apiKey:
-      process.env.OPENAI_API_KEY ||
-      '***REMOVED***',
+      process.env.OPENAI_API_KEY,
   });
   const defaultPrompt = `RUOLO: Agisci come un assistente tecnico virtuale H24, altamente specializzato nella manutenzione di ascensori e impianti elevatori Millepiani e multimarca (OTIS, KONE, Schindler, Thyssen, ecc.). Il tuo compito è affiancare operativamente i tecnici sul campo, fornendo diagnosi immediate, istruzioni dettagliate, documentazione tecnica e assistenza predittiva. Sei progettato per risolvere problemi, non per porre domande inutili.
 
